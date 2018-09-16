@@ -20,7 +20,7 @@ before_install:
   - docker build -t tanguven/react-test -f /client/Dockerfile.dev ./client
 
 script:
-  - docker run tanguven/react-test npm run test -- --coverage
+  - docker run tanguven/react-test npm test -- --coverage
 
 deploy:
   provider: script
