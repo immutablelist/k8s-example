@@ -5,7 +5,6 @@ env:
   global:
     - SHA=$(git rev-parse HEAD)
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-
 before_install:
   - openssl aes-256-cbc -K $encrypted_e6878dee2bc9_key -iv $encrypted_e6878dee2bc9_iv -in service-account.json.enc -out service-account.json -d
   - curl https://sdk.cloud.google.com | bash > /dev/null;
@@ -17,10 +16,8 @@ before_install:
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t tanguven/react-test -f /client/Dockerfile.dev ./client
-
 script:
   - docker run tanguven/react-test npm test -- --coverage
-
 deploy:
   provider: script
   script: bash ./deploy.sh
